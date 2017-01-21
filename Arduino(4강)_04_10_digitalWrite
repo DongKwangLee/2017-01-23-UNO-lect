@@ -1,0 +1,17 @@
+void setup() {
+  for (int i = 2; i <= 9; i++) pinMode(i, OUTPUT);
+}
+
+void loop() {
+   unsigned int fnd[] =
+    { 0x03, 0x9f, 0x25, 0x0d, 0x99, 0x49, 0x41, 0x1f, 0x01,
+      0x19};
+   
+   for (int j = 0; j <= 9; j++) {
+      for (int i = 2; i <= 9; i++) {
+         if (bitRead(fnd[j], 9-i)) {digitalWrite(i, HIGH);} 
+         else {digitalWrite(i, LOW);}
+      }
+      delay(1000);
+   }
+}
