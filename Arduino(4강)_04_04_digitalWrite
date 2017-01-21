@@ -1,0 +1,14 @@
+int led_pulse = 20;
+int led_on = 10;
+int led_off = led_pulse - led_on;
+
+void setup() {
+  pinMode(13, OUTPUT);
+}
+
+void loop() {  
+    digitalWrite(13, HIGH);
+    delay(led_on);
+    digitalWrite(13, LOW);
+    delay(led_off);  
+}
