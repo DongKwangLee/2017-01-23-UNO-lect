@@ -1,0 +1,14 @@
+void setup() {
+  pinMode(13, OUTPUT);
+}
+
+void loop() {
+  for (int i=0; i<3; i++){
+    digitalWrite(13, HIGH);
+    delay(500);
+    digitalWrite(13, LOW);
+    delay(500);  
+  }
+  
+  while(1);		// 여기서만 무한히 반복 (정지)
+}
