@@ -1,0 +1,15 @@
+int timer = 100;	 // 이동 시간 0.1 초
+ 
+void setup() {
+   for (int i = 2; i <= 5; i++)  {
+     pinMode(i, OUTPUT);      
+   }
+ }
+ 
+void loop() {
+   for (int i = 2; i <= 5; i++) { 
+     digitalWrite(i, HIGH);   
+     delay(timer);                  
+     digitalWrite(i, LOW);    
+   }
+}
