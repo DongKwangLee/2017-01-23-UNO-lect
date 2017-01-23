@@ -1,0 +1,18 @@
+int rx = 0; 
+
+void setup() { 
+  Serial.begin(9600);
+  pinMode(6, OUTPUT); 
+} 
+
+void loop() { 
+    if (Serial.available() > 0) { // 받은 데이터가 있으면 처리 
+    rx = Serial.read(); 
+    Serial.print("I received: "); 
+    Serial.println(rx, DEC); // 받은 데이터의 10진 ASCII코드 출력 
+    
+    if (rx == '1') {    digitalWrite(6, HIGH);     }
+    else if (rx == '2') {    digitalWrite(6, LOW);     }
+      
+    }  
+}
