@@ -1,0 +1,45 @@
+#include <SimpleTimer.h>
+
+volatile int LED0_state;
+volatile int ad_val;
+#define LED0 13
+
+int rx = 0;
+SimpleTimer timer;
+
+void setup(){
+  pinMode(LED0, OUTPUT);
+  timer.setInterval(1000, toggle_a);
+  timer.setInterval(200, serial);
+  timer.setInterval(50, adc);
+  Serial.begin(9600);
+}
+
+void loop(){
+  timer.run();
+  digitalWrite(LED0, LED0_state);
+
+  if (Serial.available() > 0) {
+  rx = Serial.read();
+  Serial.print("rx: ");
+  Serial.println(rx, HEX);
+
+  if( rx == '1')   {LED0_state = 1;}
+  else if ( rx == '2')   {LED0_state = 0;}
+  
+  }
+}
+
+void toggle_a(){
+}
+
+void serial(){
+  Serial.print("VR = ");   Serial.println(ad_val);
+}
+
+void adc(){
+   ad_val = analogRead(0);
+}
+
+void INT_01(){
+}
