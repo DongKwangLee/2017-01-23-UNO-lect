@@ -1,0 +1,58 @@
+#include <SimpleTimer.h>
+volatile int LED0_state;
+volatile int ad_val;
+volatile int ad_cds;
+#define LED0 13
+#define SW0 2
+int rx = 0;
+SimpleTimer timer;
+
+void setup(){
+  pinMode(LED0, OUTPUT);
+  pinMode(SW0, INPUT);
+  timer.setInterval(1000, toggle_a);
+  timer.setInterval(200, serial);
+  timer.setInterval(50, adc);
+  attachInterrupt(0,INT_01,RISING);
+  Serial.begin(9600);
+  
+  /*
+  LOW: pin 이 LOW 상태일 때
+  CHANGE: pin 입력 값이 변경 될 때
+  RISING: LOW -> HIGH 로 변경 될 때
+  FALLING: HIGH -> LOW 로 변경 될 때
+  (HIGH: HIGH 상태일 때 – 아두이노 DUE 에서만 지원)
+  */
+}
+
+void loop(){
+  timer.run();
+  digitalWrite(LED0, LED0_state);
+
+  if (Serial.available() > 0) {
+  rx = Serial.read();
+  Serial.print("rx: ");
+  Serial.println(rx, HEX);
+
+  if( rx == '1')   {LED0_state = 1;}
+  else if ( rx == '2')   {LED0_state = 0;}
+  
+  }
+}
+
+void toggle_a(){
+}
+
+void serial(){
+  Serial.print("VR = ");   Serial.println(ad_val);
+  Serial.print("cds = ");   Serial.println(ad_cds);
+}
+
+void adc(){
+   ad_val = analogRead(0);
+   ad_cds = analogRead(1);
+}
+
+void INT_01(){
+LED0_state = ~LED0_state;
+}
