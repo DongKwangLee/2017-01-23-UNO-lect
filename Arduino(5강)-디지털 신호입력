@@ -1,0 +1,59 @@
+#include <SimpleTimer.h>
+volatile int LED0_state;
+
+#define LED3 13
+#define LED2 12
+#define LED1 11
+#define LED0 10
+
+#define SW3 5
+#define SW2 4
+#define SW1 3
+#define SW0 2
+
+SimpleTimer timer;
+
+void setup(){
+  pinMode(LED0, OUTPUT);
+  pinMode(LED1, OUTPUT);
+  pinMode(LED2, OUTPUT);
+  pinMode(LED3, OUTPUT);
+  pinMode(SW0, INPUT);
+  pinMode(SW1, INPUT);
+  pinMode(SW2, INPUT);
+  pinMode(SW3, INPUT);
+  
+  Serial.begin(9600);
+  
+  timer.setInterval(1000, toggle_a);
+  timer.setInterval(500, serial);
+  timer.setInterval(100, adc);
+
+  attachInterrupt(0,INT_01,FALLING);
+  /*
+    LOW: pin 이 LOW 상태일 때
+    CHANGE: pin 입력 값이 변경 될 때
+    RISING: LOW -> HIGH 로 변경 될 때
+    FALLING: HIGH -> LOW 로 변경 될 때
+    (HIGH: HIGH 상태일 때 – 아두이노 DUE 에서만 지원)
+   */
+}
+
+void loop(){
+  timer.run();
+  digitalWrite(LED0, LED0_state);
+}
+
+void toggle_a(){
+}
+
+void serial(){
+}
+
+void adc(){
+}
+
+void INT_01(){
+  LED0_state = ~LED0_state;
+}
+
